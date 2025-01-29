@@ -22,6 +22,15 @@ export default defineConfig({
         ],
         collapsed: false,
         base: '/general'
+      },
+      {
+        text: 'Golang',
+        items: [
+          { text: 'Topics', link: '/' },
+          { text: 'Special Syntaxes', link: '/special-syntaxes' }
+        ],
+        collapsed: true,
+        base: '/golang'
       }
     ],
     socialLinks: [

@@ -1,3 +1,7 @@
+---
+next: false
+---
+
 # Software Development Tips
 
 ## 以套件實現系統功能的優先順序考量

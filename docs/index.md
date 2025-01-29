@@ -9,6 +9,9 @@ hero:
     - theme: alt
       text: General
       link: /general
+    - theme: alt
+      text: Golang
+      link: /golang
   #   - theme: alt
   #     text: API Examples
   #     link: /api-examples
