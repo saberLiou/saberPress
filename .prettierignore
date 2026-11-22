@@ -1,0 +1,5 @@
+docs/.vitepress/dist
+docs/.vitepress/cache
+package-lock.json
+docs/api-examples.md
+docs/markdown-examples.md

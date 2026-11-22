@@ -9,20 +9,25 @@ next: false
 - Codes are grouped into packages, and packages are grouped into modules.
 - Codes executed as an application must be running in package `main`.
 - Package name is the same as the last element of the import path.
+
 > ex. The `math/rand` package comprises files that begin with the statement `package rand`.
+
 - **Factored `import` statement** groups imported packages into parentheses.
+
 ```go
 import (
   "math/rand"
   // other packages
 )
 ```
+
 - A name in a package is exported if it begins with a capital letter.
 - Every declaration in package scope should begin with a keyword.
 
 ## Type, Variable and Constant
 
 - Basic types
+
 ```go
 bool
 
@@ -39,31 +44,38 @@ float32 float64
 
 complex64 complex128
 ```
+
 - `T(e)` converts the expression `e` to the type `T`.
   - Assignment of different type requires an explicit conversion.
 - The type comes after the variable name, [why](https://go.dev/blog/declaration-syntax)?
 - A `var` statement can be in package scope.
+
 ```go
 package main
 
 var i int
 ```
+
 - **Factored `var` statement** groups variable declarations into parentheses.
+
 ```go
 var (
   i int
   // other variables
 )
 ```
+
 - Uninitialized variable is **zero-valued**.
   - `0` for numeric types
   - `false` for boolean
   - `""` for string
   - `nil` for pointer
 - Variable can be initialized by an expression computed at run time.
+
 ```go
 var home = os.Getenv("HOME")
 ```
+
 - Use `:=` shorthand to declare and initialize a variable, only available in function scope.
 - Assignment of constant can only be **constant expression** computed at compile time.
   - string
@@ -94,14 +106,17 @@ var home = os.Getenv("HOME")
   }
   ```
 - `if` and `switch` accept an optional initialization statement before condition expression like `for`.
+
 ```go
 if i := 1; condition {
   // statements
 }
 ```
+
 - No [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator).
 - `case` in `switch` can be an expression, and last `break` statement is unnecessary.
 - `if`-`else if`-`else` by `switch` without condition expression.
+
 ```go
 // same as `switch true`
 switch {
@@ -117,11 +132,13 @@ switch {
 ## Function
 
 - If consecutive parameters share a type, their type can be omitted from all but the last.
+
 ```go
 func add(x, y int) int {
   return x + y
 }
 ```
+
 - **Named return values**, or named result parameters
   - Document the meaning of the return values.
   - **Naked `return` statement** without arguments returns the named return values.
@@ -136,6 +153,7 @@ func add(x, y int) int {
 ## Struct
 
 - `struct`: typed collection of fields.
+
 ```go
 type struct_name struct {
   field_name field_type;
@@ -150,7 +168,9 @@ type struct_name struct {
 - `[n]T{}`: `n` zero-valued elements of type `T`.
 - `[...]T{elements, n:element}`: length-inferred elements by `...` of type `T`, with the `n`th-assigned element.
 - The fixed size of an array is part of its type.
+
 > ex. The types `[10]int` and `[20]int` are distinct.
+
 - **Passed-by-value**: assigning one array to another copies all the elements, passing into a function as well.
 
 ### Slice
@@ -159,6 +179,7 @@ type struct_name struct {
   - `len()`(**length**): amount of elements in a slice.
   - `cap()`(**capacity**): remaining amount of elements in underlying array, counting from the first element in the referred slice.
 - Uninitialized slice: `nil`, empty slice: `[]T`.
+
 ```go
 import "slices"
 
@@ -169,6 +190,7 @@ ns == nil // true
 es == nil // false
 slices.Equal(ns, es) // true
 ```
+
 - [`make(slice, n, capacity)`](https://pkg.go.dev/builtin#make): allocate an array with `n` zero-valued elements of type `T`, and return a slice with the capacity.
 - [`append(slice, elements)`](https://pkg.go.dev/builtin#append): append elements to the end of a slice, reallocating to a new underlying array if its capacity insufficient.
 - [`copy(to_slice, from_slice)`](https://pkg.go.dev/builtin#copy): copy slice and its underlying array up to minimum of `len(from)` and `len(to)`.
@@ -181,10 +203,12 @@ slices.Equal(ns, es) // true
   - Cannot assign any key-value pair to an uninitialized map, use `make(map[key_T]value_T])` to allocate an empty map.
 - Key of a map can be any type for which the equality operator is defined, so **slice** can't be used as map keys.
 - If a key doesn't exist in a map, zero-valued `value_T` (and key exists or not, a.k.a. **comma ok**) is/are returned.
+
 ```go
 m := make(map[string]int)
 value, ok := m["key"] // `value`: 0, `ok`: false
 _, ok = m["key"] // just `ok` by blank identifier in place of `value`
 ```
+
 - [`delete(map, key)`](https://pkg.go.dev/builtin#delete): remove a key-value pair from a map.
 - [`clear(map)`](https://pkg.go.dev/builtin#clear): remove all key-value pairs up to an empty map.

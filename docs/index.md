@@ -2,8 +2,8 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 hero:
-  name: "saberPress"
-  text: "A cheat sheet built in bullet points."
+  name: 'saberPress'
+  text: 'A cheat sheet built in bullet points.'
   # tagline: My great project tagline
   actions:
     - theme: alt
