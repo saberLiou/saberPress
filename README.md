@@ -5,7 +5,16 @@ Live site: [GitHub Pages](https://saberliou.github.io/saberPress/)
 
 ## Development
 
-Requires [nvm](https://github.com/nvm-sh/nvm); the Node.js version is pinned in `.nvmrc`. `npm install` (via `engine-strict` in `.npmrc`) fails on an older Node.js.
+Requires [nvm](https://github.com/nvm-sh/nvm); the Node.js version is pinned in `.nvmrc`. `npm install` fails on Node.js or npm older than `engines` in `package.json`, and on dependency install scripts not reviewed in `allowScripts`. To review the latter:
+
+```sh
+npm install --ignore-scripts      # Install without running scripts, as `ls` and `deny` only see installed packages
+npm install-scripts ls            # List the unreviewed install scripts
+npm install-scripts deny <pkg>    # Or `approve <pkg>`, only if the script is really needed
+npm ci                            # Reinstall with the reviewed policy
+```
+
+Commands:
 
 ```sh
 nvm use               # Switch to the Node.js version in .nvmrc (run `nvm install` first if missing)
