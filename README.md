@@ -1,7 +1,7 @@
 # saberPress
 
 A cheat sheet built in bullet points.
-Live site: [GitHub Pages](https://saberliou.github.io/saberPress/)
+Live site: [GitHub Pages](https://saberliou.github.io/saberPress/) · [GitLab Pages](https://saberliou.gitlab.io/saberPress/)
 
 ## Development
 
@@ -45,17 +45,18 @@ docs/
 
 ## Deployment
 
-Pushes to `main` build and deploy the site to GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`); it can also be triggered manually from the Actions tab:
+Pushes to the default branch (`main`) build and deploy the site to GitHub Pages and GitLab Pages respectively; both can also be triggered manually (Actions tab on GitHub, "Run pipeline" on GitLab):
 
 ```text
- push main → npm ci → format:check → vitepress build → upload docs/.vitepress/dist → GitHub Pages
+ push main → npm ci → format:check → vitepress build → docs/.vitepress/dist → Pages
 ```
 
-| Host         | Pipeline                                        | URL                                     |
-| ------------ | ----------------------------------------------- | --------------------------------------- |
-| GitHub Pages | GitHub Actions (`.github/workflows/deploy.yml`) | https://saberliou.github.io/saberPress/ |
+| Host         | Pipeline                                           | URL                                     |
+| ------------ | -------------------------------------------------- | --------------------------------------- |
+| GitHub Pages | GitHub Actions (`.github/workflows/deploy.yml`)    | https://saberliou.github.io/saberPress/ |
+| GitLab Pages | GitLab CI/CD (`.gitlab-ci.yml`, `build` → `pages`) | https://saberliou.gitlab.io/saberPress/ |
 
-The site is served under a sub-path, so `base: '/saberPress/'` is set in `docs/.vitepress/config.mts`.
+Both hosts serve the site under the same sub-path, so `base: '/saberPress/'` is set in `docs/.vitepress/config.mts`.
 
 ## License
 

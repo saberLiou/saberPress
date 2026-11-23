@@ -1,0 +1,47 @@
+# Build and deploy to GitLab Pages (mirrors .github/workflows/deploy.yml)
+
+# Run only on the default branch (push, or "Run pipeline" in the GitLab UI)
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+stages:
+  - build
+  - deploy
+
+# Keep the version in sync with .nvmrc
+default:
+  image: node:24.22.3
+
+build:
+  stage: build
+  variables:
+    # Full history for VitePress `lastUpdated` (GitLab clones shallowly by default)
+    GIT_DEPTH: 0
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run format:check
+    - npm run docs:build
+  artifacts:
+    paths:
+      - docs/.vitepress/dist/
+    expire_in: 1 day
+
+pages:
+  stage: deploy
+  needs: [build]
+  # Only one deployment at a time; new pipelines queue instead of interrupting
+  resource_group: pages
+  script:
+    - echo "Publishing docs/.vitepress/dist/ to GitLab Pages"
+  pages:
+    publish: docs/.vitepress/dist
+  environment:
+    name: gitlab-pages
+    url: $CI_PAGES_URL
