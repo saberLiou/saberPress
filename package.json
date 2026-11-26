@@ -12,7 +12,8 @@
   },
   "devDependencies": {
     "prettier": "^3.10.1",
-    "vitepress": "^1.6.4"
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-llms": "^1.15.0"
   },
   "allowScripts": {
     "esbuild": false,

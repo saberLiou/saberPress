@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import llmstxt from 'vitepress-plugin-llms'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -9,6 +10,10 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   srcExclude: ['api-examples.md', 'markdown-examples.md'],
+  vite: {
+    // https://github.com/okineadev/vitepress-plugin-llms
+    plugins: [llmstxt({ ignoreFiles: ['*/index.md'] })],
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     // nav: [

@@ -27,6 +27,18 @@ npm run format        # Format with Prettier (`npm run format:check` to check on
 
 Tech stack: [VitePress](https://vitepress.dev/) with the default theme (local search enabled), formatted with Prettier.
 
+### LLM-friendly docs
+
+[vitepress-plugin-llms](https://github.com/okineadev/vitepress-plugin-llms) (registered in `vite.plugins` of `docs/.vitepress/config.mts`) generates the following into `docs/.vitepress/dist/` on `npm run docs:build`, following the [llms.txt](https://llmstxt.org/) convention:
+
+| Output                 | Content                                                        | URL                                                                              |
+| ---------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `llms.txt`             | Table of contents linking to each topic's Markdown, by sidebar | https://saberliou.github.io/saberPress/llms.txt                                  |
+| `llms-full.txt`        | All topics concatenated into one Markdown file                 | https://saberliou.github.io/saberPress/llms-full.txt                             |
+| `<section>/<topic>.md` | Markdown version of each topic page, next to its `.html`       | e.g. https://saberliou.github.io/saberPress/general/software-development-tips.md |
+
+Section `index.md` pages are left out by `ignoreFiles: ['*/index.md']`, as they only list links already in `llms.txt`; pages excluded by `srcExclude` are left out as well. Add `description` in a topic's frontmatter to describe its link in `llms.txt`.
+
 ## Structure
 
 ```
